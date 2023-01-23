@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.0/dist/umd/popper.min.js" integrity="sha384-vKMvgM+rYbEZ/Wj8x7vH9l/Ef7iFzwWj8fvqD4n4f5/N/N7Zz0NwS5S/j5x5E5h" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <title>Checkout</title>
+</head>
+<body>
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+    <form action="{% url 'checkout' %}" method="post">
+        {% csrf_token %}
+        <h2>Shipping Information</h2>
+        <div class="form-group">
+          <label for="name">Phone Number</label>
+          <input type="number" class="form-control" id="name" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Location</label>
+            <select id="options" name="location">
+              {% for loc in location %}
+              <option value="{{loc.id}}">{{loc.location}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        <h2>Payment Information</h2>
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input type="text" class="form-control" id="card-number" name="card-number" required>
+        </div>
+        <div class="form-group">
+          <label for="card-expiry">Expiration Date</label>
+          <input type="text" class="form-control" id="card-expiry" name="card-expiry" required>
+        </div>
+        <div class="form-group">
+          <label for="card-cvc">CVC</label>
+          <input type="text" class="form-control" id="card-cvc" name="card-cvc" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Payment</button>
+      </form>
+      <script>
+        // get form elements
+        var cardNumber = document.getElementById("card-number");
+        var cardExpiry = document.getElementById("card-expiry");
+        var cardCVC = document.getElementById("card-cvc");
+      
+        // add event listeners to form elements
+        cardNumber.addEventListener("input", validateCardNumber);
+        cardExpiry.addEventListener("input", validateCardExpiry);
+        cardCVC.addEventListener("input", validateCardCVC);
+      
+        function validateCardNumber() {
+          // get the card number
+          var cardNum = cardNumber.value;
+          // check if the card number is the correct length (16 digits)
+          if (cardNum.length != 16) {
+            cardNumber.setCustomValidity("Invalid card number. Must be 16 digits.");
+          } else {
+            cardNumber.setCustomValidity("");
+          }
+        }
+      
+        function validateCardExpiry() {
+          // get the expiration date
+          var expDate = cardExpiry.value;
+          // check if the expiration date is in the correct format (MM/YY)
+          var expDatePattern = /^(0[1-9]|1[0-2])\/(\d{2})$/;
+          if (!expDatePattern.test(expDate)) {
+            cardExpiry.setCustomValidity("Invalid expiration date. Must be in the format MM/YY.");
+          } else {
+            cardExpiry.setCustomValidity("");
+          }
+        }
+      
+        function validateCardCVC() {
+          // get the CVC
+          var cvc = cardCVC.value;
+          // check if the CVC is the correct length (3 or 4 digits)
+          if (cvc.length < 3 || cvc.length > 4) {
+            cardCVC.setCustomValidity("Invalid CVC. Must be 3 or 4 digits.");
+          } else {
+            cardCVC.setCustomValidity("");
+          }
+        }
+      </script>
+      
+</body>
+</html>

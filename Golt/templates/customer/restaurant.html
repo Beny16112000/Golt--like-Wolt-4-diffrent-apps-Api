@@ -1,0 +1,45 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant</title>
+</head>
+    <body>
+        <header>
+          <h1>Welcome to <a href="/customer/main/restaurant/{{restaurant.name}}">{{restaurant.name}}</a></h1>
+          <p>{{restaurant.detail}}</p>
+        </header>
+        {% for message in messages %}
+            {{messgae}}
+        {% endfor %}
+        <section class="product-grid">
+          <div class="container">
+            <div class="row">
+            {% for d in dishes %}
+              <div class="col-sm-6 col-md-4">
+                <div class="card">
+                  <img src="/media/{{d.img}}" class="card-img-top" alt="product1">
+                  <div class="card-body">
+                    <h5 class="card-title">{{d.name}}</h5>
+                    <p class="card-text">{{d.detail}}</p>
+                    <div class="product-price">$ {{d.price}}</div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="dish" value="{{d.id}}">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+          </div>
+        </section>     
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'partner/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+</head>
+<body>
+    {% if partner.available == False %}
+        <a href="/partner/main/available/online" style="background-color: greenyellow;">Get online</a>
+    {% else %}
+        <a href="/partner/main/available/offline" style="background-color: red;">Go offline</a>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Your Order Id</th>
+            <th>Customer name</th>
+            <th>Restaurant Name</th>
+            <th>Restaurant Location</th>
+            <th>Customer Location</th>
+            <th>Customer Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr>
+            <td>{{ order.order.id }}</td>
+            <td>{{ order.id }}</td>
+            <td>{{ order.order.user }}</td>
+            <td>{{ order.order.restaurant.name }}</td>
+            <td>{{ order.order.restaurant.location.location }}</td>
+            <td>{{ order.order.location.location }}</td>
+            <td>
+                <a href="tel:0{{  order.order.phone }}" style="color:white; background-color: green; padding: 10px 20px; text-decoration: none;">
+                    <button>Call To customer</button>
+                </a>
+            </td>
+            <td>
+              <a href="/partner/delivered/{{order.order.id}}" class="btn btn-primary" style="background-color: greenyellow;">Delivered</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</body>
+</html>
+{% endblock %}

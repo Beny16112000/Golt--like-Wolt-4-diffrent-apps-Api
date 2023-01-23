@@ -1,0 +1,35 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ff9900;
+    color: #121A22;
+    padding: 20px;
+  }
+  
+  .header-title {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  nav {
+    display: flex;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  nav li {
+    margin-right: 20px;
+  }
+  
+  nav a {
+    color: #121A22;
+    text-decoration: none;
+  }
+  
+  nav a:hover {
+    color: #e6e6e5;
+  }

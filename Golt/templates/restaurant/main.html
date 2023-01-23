@@ -1,0 +1,45 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+</head>
+<body>
+    {% if available.available == False %}
+        <button type="submit" style="background-color: chartreuse; border-radius: 6px;"><a href="/restaurant/store/open">Open</a></button>
+    {% else %}
+    <button type="submit" style="background-color: red; border-radius: 6px;"><a href="/restaurant/store/close">Close</a></button>
+    {% endif %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer name</th>
+            <th>Phone</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.user }}</td>
+            <td>{{ order.phone }}</td>
+            <td>{{ order.total }}</td>
+            <td>
+              <a href="/restaurant/order/view/{{order.id}}" class="btn btn-primary">View</a>
+              <a href="/restaurant/send-api/{{order.id}}" class="btn btn-primary" style="background-color: greenyellow;">Ready</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+</body>
+</html>
+{% endblock %}

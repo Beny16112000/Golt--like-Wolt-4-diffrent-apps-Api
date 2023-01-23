@@ -1,0 +1,36 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Dishes</title>
+</head>
+<body>
+    <button><a href="/restaurant/dishes/add">
+        Add Dishes
+    </a></button>
+    <br>
+    <br>
+    {% for d in dishes %}
+    <div class="product-card">
+        <img src="/media/{{d.img}}">
+        <h2 class="product-name">{{d.name}}</h2>
+        <div class="product-details">
+          <div class="product-price">${{d.price}}</div>
+          <div class="product-description">
+            {{d.detail}} 
+          </div>
+        </div>
+        <div class="product-cta">
+          <a href="/restaurant/dishes/edit/{{d.id}}" class="btn btn-primary">Edit</a>
+          <a href="/restaurant/dishes/delete/{{d.id}}" class="btn btn-primary" style="background-color: red;">Delete</a>
+        </div>
+      </div>
+    {% endfor %}
+</body>
+</html>
+{% endblock %}

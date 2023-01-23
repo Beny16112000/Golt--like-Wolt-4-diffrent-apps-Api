@@ -1,0 +1,39 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Order</title>
+</head>
+<body>
+    <a href="/restaurant/{{order.restaurant.name}}">Back to orders</a>
+    <h4>Order #{{ order.id }}</h4>
+<table class="table">
+</table>
+
+<h3>Order Items:</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Detail</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.dish.name }}</td>
+      <td>{{ item.dish.detail }}</td>
+      <td>{{ item.dish.price }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>
+{% endblock %}

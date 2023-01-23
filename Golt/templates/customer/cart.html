@@ -1,0 +1,46 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.0/dist/umd/popper.min.js" integrity="sha384-vKMvgM+rYbEZ/Wj8x7vH9l/Ef7iFzwWj8fvqD4n4f5/N/N7Zz0NwS5S/j5x5E5h" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <title>Cart Page</title>
+</head>
+<body>
+    <table>
+        <thead>
+          <tr>
+            <th>Restaurant</th>
+            <th>Dish</th>
+            <th>Detail</th>
+            <th style="margin-left: 20px; margin-right: 20px;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in items %}
+          <tr>
+            <td>{{ i.dish.restaurant.name }}</td>
+            <td>{{ i.dish.name }}</td>
+            <td>{{ i.dish.detail }}</td>
+            <td>$ {{ i.dish.price }}</td>
+            <td><a href="/customer/delete/item/{{i.id}}">Delete Item</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total - </td>
+            <td>$ {{ total }}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <button><a href="/customer/checkout">Go to Checkout</a></button>
+</body>
+</html>
+{% endblock %}

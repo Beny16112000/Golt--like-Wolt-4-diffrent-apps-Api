@@ -1,0 +1,58 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Order</title>
+</head>
+<body>
+    <h2>Order #{{ order.id }}</h2> 
+    {% if rating != None and rating.order.delivered == True %}
+      Your rating is - <h6 style="color: yellow;" >{{rating.rate}}</h6>
+    {% elif rating == None and rating.order.delivered == False %}
+      <h6>Can rate when the order delivered</h6>
+    {% elif rating == None %}
+      <a href="/customer/main/orders/rate/{{order.id}}">Rate !</a>
+    {% endif %}
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Total:</th>
+      <td>{{ order.total }}</td>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Order Items:</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Restaurant</th>
+      <th>Name</th>
+      <th>Detail</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+    <td>{{ item.dish.restaurant.name }}</td>
+      <td>{{ item.dish.name }}</td>
+      <td>{{ item.dish.detail }}</td>
+      <td>{{ item.dish.price }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>
+{% endblock %}
+
+

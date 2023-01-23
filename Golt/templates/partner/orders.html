@@ -1,0 +1,36 @@
+{% extends 'partner/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Location</th>
+            <th>Restaurant</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+          <tr>
+            <td>{{ order.order.id }}</td>
+            <td>{{ order.order.user }}</td>
+            <td>{{ order.order.location.location }}</td>
+            <td>{{ order.order.restaurant.name }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <label>Your Salary - {{ salary }}</label>
+</body>
+</html>
+{% endblock %}

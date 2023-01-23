@@ -1,0 +1,44 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Restaurant</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.restaurant.name }}</td>
+            <td>{{ order.total }}</td>
+            {% if order.delivered == False %}
+                <td>Not completed</td>
+            {% else %}
+                <td>completed !</td>
+            {% endif %}
+            <td>
+              <a href="/customer/main/orders/{{order.id}}" class="btn btn-primary">View</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      
+</body>
+</html>
+{% endblock %}
